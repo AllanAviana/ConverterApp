@@ -5,7 +5,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.converterapp.presentation.screen.ConverterScreen
+import com.example.converterapp.presentation.screen.converterscreen.Converter
 import com.example.converterapp.presentation.screen.WelcomeScreen
 import com.example.converterapp.presentation.screen.viewmodel.ViewModel
 
@@ -21,7 +21,7 @@ fun AppNavGraph(){
         }
 
         composable(route = AppNavigationRoute.ConversionScreen.route){
-            ConverterScreen(viewModel)
+            Converter(viewModel)
         }
 
     }

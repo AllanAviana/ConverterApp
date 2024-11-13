@@ -1,8 +1,7 @@
-package com.example.converterapp.presentation.screen
+package com.example.converterapp.presentation.screen.converterscreen.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,7 +22,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,11 +36,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.converterapp.R
+import com.example.converterapp.presentation.screen.viewmodel.UiState
 import com.example.converterapp.presentation.screen.viewmodel.ViewModel
 
 @Composable
-fun ConverterScreen(viewModel: ViewModel) {
-    val uiState = viewModel.uiState.collectAsState()
+fun HomeScreen(viewModel: ViewModel, uiState: State<UiState>) {
 
     val countryImage: Map<String, Int> = mapOf(
         "BRL" to R.drawable.img_4,
@@ -50,7 +49,6 @@ fun ConverterScreen(viewModel: ViewModel) {
         "GBP" to R.drawable.img_5,
         "EUR" to R.drawable.img_3
     )
-
 
     Column(
         modifier = Modifier
@@ -84,7 +82,7 @@ fun ConverterScreen(viewModel: ViewModel) {
                     tint = Color.Gray,
 
 
-                )
+                    )
             },
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color(0xFFF1F1F1),
@@ -99,6 +97,7 @@ fun ConverterScreen(viewModel: ViewModel) {
             shape = RoundedCornerShape(15.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
         )
+
         Spacer(modifier = Modifier.height(32.dp))
 
         Row(
@@ -106,14 +105,9 @@ fun ConverterScreen(viewModel: ViewModel) {
                 .fillMaxWidth(0.7f),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-
             OutlinedTextField(
-                value = uiState.value.amount,
-                onValueChange = {
-                    if (it.all { char -> char.isDigit() }) {
-                        viewModel.updateAmount(it)
-                    }
-                },
+                value = "",
+                onValueChange = {},
                 placeholder = { Text(uiState.value.firstCountry, color = Color.Gray) },
                 singleLine = true,
                 leadingIcon = {
@@ -121,9 +115,7 @@ fun ConverterScreen(viewModel: ViewModel) {
                         painter = painterResource(id = uiState.value.firstFlag),
                         contentDescription = null,
                         modifier = Modifier.size(40.dp)
-                        )
-
-                },
+                    ) },
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color(0xFFF1F1F1),
                     unfocusedContainerColor = Color(0xFFF1F1F1),
@@ -146,12 +138,8 @@ fun ConverterScreen(viewModel: ViewModel) {
             )
 
             OutlinedTextField(
-                value = uiState.value.amount,
-                onValueChange = {
-                    if (it.all { char -> char.isDigit() }) {
-                        viewModel.updateAmount(it)
-                    }
-                },
+                value = "",
+                onValueChange = {},
                 placeholder = { Text(uiState.value.secondCountry, color = Color.Gray) },
                 singleLine = true,
                 leadingIcon = {
@@ -175,30 +163,22 @@ fun ConverterScreen(viewModel: ViewModel) {
                 readOnly = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
             )
-
         }
 
         Spacer(modifier = Modifier.height(42.dp))
 
-
-
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { viewModel.converter() },
             modifier = Modifier
                 .fillMaxWidth(0.7f)
                 .height(52.dp),
             colors = ButtonDefaults.buttonColors(Color(0xFF021846)),
             shape = RoundedCornerShape(15.dp),
         ) {
-
             Text(text = "Convert", color = Color.White)
-
         }
 
-
         Spacer(modifier = Modifier.height(56.dp))
-
-
 
         Column(
             modifier = Modifier
@@ -210,31 +190,8 @@ fun ConverterScreen(viewModel: ViewModel) {
             verticalArrangement = Arrangement.SpaceAround
         ) {
             countryImage.forEach { (country, imageId) ->
-                CountryRow(country = country, imageId = imageId, viewModel)
+                CountryRow(country = country, imageId = imageId, viewModel, false)
             }
         }
-    }
-}
-
-@Composable
-fun CountryRow(country: String, imageId: Int, viewModel: ViewModel) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth(0.3f)
-            .clickable {
-                viewModel.updateCountries(country, imageId)
-            },
-        horizontalArrangement = Arrangement.SpaceAround,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Image(
-            painter = painterResource(id = imageId),
-            contentDescription = null,
-            modifier = Modifier
-                .size(55.dp)
-        )
-        
-        Text(text = country, fontSize = 15.sp )
-        
     }
 }
