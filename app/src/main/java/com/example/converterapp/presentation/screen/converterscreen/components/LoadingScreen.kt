@@ -26,11 +26,11 @@ import com.example.converterapp.presentation.screen.viewmodel.ViewModel
 @Composable
 fun LoadingScreen(viewModel: ViewModel, uiState: State<UiState>) {
     val countryImage: Map<String, Int> = mapOf(
-        "BRL" to R.drawable.img_4,
-        "USD" to R.drawable.img,
-        "RUB" to R.drawable.img_2,
-        "GBP" to R.drawable.img_5,
-        "EUR" to R.drawable.img_3
+        "BRL" to R.drawable.brl,
+        "USD" to R.drawable.usd,
+        "RUB" to R.drawable.rub,
+        "GBP" to R.drawable.gbp,
+        "EUR" to R.drawable.eur
     )
 
     Column(

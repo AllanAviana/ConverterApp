@@ -7,22 +7,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
 import com.example.converterapp.R
 import com.example.converterapp.presentation.screen.viewmodel.UiState
 import com.example.converterapp.presentation.screen.viewmodel.ViewModel
@@ -33,11 +29,11 @@ fun HomeScreen(viewModel: ViewModel, uiState: State<UiState>) {
     val expanded = remember { mutableStateOf(false) }
 
     val countryImage: Map<String, Int> = mapOf(
-        "BRL" to R.drawable.img_4,
-        "USD" to R.drawable.img,
-        "RUB" to R.drawable.img_2,
-        "GBP" to R.drawable.img_5,
-        "EUR" to R.drawable.img_3
+        "BRL" to R.drawable.brl,
+        "USD" to R.drawable.usd,
+        "RUB" to R.drawable.rub,
+        "GBP" to R.drawable.gbp,
+        "EUR" to R.drawable.eur
     )
 
     Box(

@@ -57,7 +57,7 @@ fun WelcomeScreen(navController: NavHostController) {
                 modifier = Modifier
                     .width(210.dp)
                     .offset(y = (-75).dp),
-                image = R.drawable.img_2,
+                image = R.drawable.rub,
                 35,
                 colorText = Color.Black,
                 text = "RUB",
@@ -67,7 +67,7 @@ fun WelcomeScreen(navController: NavHostController) {
                 modifier = Modifier
                     .width(235.dp)
                     .offset(y = (-38).dp),
-                image = R.drawable.img_3,
+                image = R.drawable.eur,
                 35,
                 Color.Black,
                 text = "EUR"
@@ -77,7 +77,7 @@ fun WelcomeScreen(navController: NavHostController) {
                 modifier = Modifier
                     .width(260.dp)
                     .zIndex(2f),
-                image = R.drawable.img,
+                image = R.drawable.usd,
                 45,
                 Color.White,
                 text = "USD"
@@ -89,7 +89,7 @@ fun WelcomeScreen(navController: NavHostController) {
                     .width(235.dp)
                     .offset(y = (35).dp)
                     .zIndex(1f),
-                image = R.drawable.img_5,
+                image = R.drawable.gbp,
                 35,
                 Color.Black,
                 text = "GBP"
@@ -99,7 +99,7 @@ fun WelcomeScreen(navController: NavHostController) {
                 modifier = Modifier
                     .width(210.dp)
                     .offset(y = (70).dp),
-                image = R.drawable.img_4,
+                image = R.drawable.brl,
                 35,
                 Color.Black,
                 text = "BRL")
