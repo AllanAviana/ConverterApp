@@ -1,4 +1,4 @@
-package com.example.converterapp.presentation.screen
+package com.example.converterapp.presentation.screen.welcome
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -103,12 +103,7 @@ fun WelcomeScreen(navController: NavHostController) {
                 35,
                 Color.Black,
                 text = "BRL")
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(0.8f)
-                    .background(Color(0xFF3E4F75).copy(alpha = 0.4f))
-                    .zIndex(3.0f)
-            )
+
         }
 
         Spacer(modifier = Modifier.height(145.dp))

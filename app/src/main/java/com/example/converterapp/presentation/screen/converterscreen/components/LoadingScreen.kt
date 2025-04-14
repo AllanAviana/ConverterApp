@@ -4,23 +4,27 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.converterapp.R
+import com.example.converterapp.presentation.screen.viewmodel.UiState
 import com.example.converterapp.presentation.screen.viewmodel.ViewModel
 
 @Composable
-fun LoadingScreen(viewModel: ViewModel) {
+fun LoadingScreen(viewModel: ViewModel, uiState: State<UiState>) {
     val countryImage: Map<String, Int> = mapOf(
         "BRL" to R.drawable.img_4,
         "USD" to R.drawable.img,
@@ -47,6 +51,9 @@ fun LoadingScreen(viewModel: ViewModel) {
             CircularProgressIndicator()
         }
 
+        Spacer(modifier = Modifier.height(24.dp))
+
+
         Box(
             modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
         ) {
@@ -60,7 +67,13 @@ fun LoadingScreen(viewModel: ViewModel) {
                 verticalArrangement = Arrangement.SpaceAround
             ) {
                 countryImage.forEach { (country, imageId) ->
-                    CountryRow(country = country, imageId = imageId, viewModel, isEnabled = true)
+                    CountryRow(
+                        country = country,
+                        imageId = imageId,
+                        viewModel,
+                        isEnabled = true,
+                        uiState = uiState
+                    )
                 }
             }
             Box(

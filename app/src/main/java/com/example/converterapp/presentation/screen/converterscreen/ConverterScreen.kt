@@ -13,7 +13,7 @@ fun Converter(viewModel: ViewModel){
    if(uiState.value.isNothing){
        HomeScreen(viewModel, uiState)
    }else if(uiState.value.isLoading){
-       LoadingScreen(viewModel)
+       LoadingScreen(viewModel, uiState)
    }else if(uiState.value.isSuccess){
        SuccessScreen(viewModel, uiState)
    }

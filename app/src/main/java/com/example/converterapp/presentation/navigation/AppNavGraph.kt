@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.converterapp.presentation.screen.converterscreen.Converter
-import com.example.converterapp.presentation.screen.WelcomeScreen
+import com.example.converterapp.presentation.screen.welcome.WelcomeScreen
 import com.example.converterapp.presentation.screen.viewmodel.ViewModel
 
 @Composable

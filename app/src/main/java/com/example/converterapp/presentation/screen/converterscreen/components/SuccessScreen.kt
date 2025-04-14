@@ -127,6 +127,7 @@ fun SuccessScreen(viewModel: ViewModel, uiState: State<UiState>) {
                 Text(text = "Do another conversion", color = Color.White)
             }
         }
+        Spacer(modifier = Modifier.height(24.dp))
 
         Box(
             modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
@@ -142,7 +143,13 @@ fun SuccessScreen(viewModel: ViewModel, uiState: State<UiState>) {
                 verticalArrangement = Arrangement.SpaceAround
             ) {
                 countryImage.forEach { (country, imageId) ->
-                    CountryRow(country = country, imageId = imageId, viewModel, isEnabled = true)
+                    CountryRow(
+                        country = country,
+                        imageId = imageId,
+                        viewModel,
+                        isEnabled = true,
+                        uiState
+                    )
                 }
             }
 

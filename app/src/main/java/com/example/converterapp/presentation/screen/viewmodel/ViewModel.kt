@@ -68,41 +68,45 @@ class ViewModel @Inject constructor(
         }
     }
     fun converter() {
-        viewModelScope.launch {
-            _UiState.update {
-                it.copy(
-                    isNothing = false,
-                    isLoading = true
-                )
-            }
+        if (uiState.value.amount.isNotEmpty()) {
+            viewModelScope.launch {
+                _UiState.update {
+                    it.copy(
+                        isNothing = false,
+                        isLoading = true
+                    )
+                }
 
-            delay(1000)
-            val result = repository.getCurrencyQuote("${uiState.value.firstCountry}-${uiState.value.secondCountry}")
-            Log.d("repository", "Result: $result")
-            if (result is ConverterUiState.Success && result.data != null) {
-                val currencyQuote = result.data["${uiState.value.firstCountry}${uiState.value.secondCountry}"]
-                Log.d("repository", "Currency Quote: $currencyQuote")
-                val bid = currencyQuote!!.bid
+                delay(1000)
+                val result =
+                    repository.getCurrencyQuote("${uiState.value.firstCountry}-${uiState.value.secondCountry}")
+                Log.d("repository", "Result: $result")
+                if (result is ConverterUiState.Success && result.data != null) {
+                    val currencyQuote =
+                        result.data["${uiState.value.firstCountry}${uiState.value.secondCountry}"]
+                    Log.d("repository", "Currency Quote: $currencyQuote")
+                    val bid = currencyQuote!!.bid
 
-                Log.d("repository", "Bid value: $bid")
+                    Log.d("repository", "Bid value: $bid")
 
 
                     _UiState.update { currentState ->
-                        currentState.copy(number =bid.toFloat())
+                        currentState.copy(number = bid.toFloat())
                     }
 
-                _UiState.update { currentState ->
-                    currentState.copy(result = (uiState.value.amount.toFloat() * uiState.value.number).toString())
-                }
+                    _UiState.update { currentState ->
+                        currentState.copy(result = (uiState.value.amount.toFloat() * uiState.value.number).toString())
+                    }
 
-                _UiState.update {
-                    it.copy(
-                        isLoading = false,
-                        isSuccess = true
-                    )
+                    _UiState.update {
+                        it.copy(
+                            isLoading = false,
+                            isSuccess = true
+                        )
+                    }
+                } else {
+                    Log.e("repository", "Failed to fetch currency quote or data is null")
                 }
-            } else {
-                Log.e("repository", "Failed to fetch currency quote or data is null")
             }
         }
     }
