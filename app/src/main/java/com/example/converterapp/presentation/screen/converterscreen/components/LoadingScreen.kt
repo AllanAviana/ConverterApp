@@ -55,7 +55,9 @@ fun LoadingScreen(viewModel: ViewModel, uiState: State<UiState>) {
 
 
         Box(
-            modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
         ) {
             Column(
                 modifier = Modifier
@@ -77,7 +79,9 @@ fun LoadingScreen(viewModel: ViewModel, uiState: State<UiState>) {
                 }
             }
             Box(
-                modifier = Modifier.fillMaxSize().background(Color.White.copy(alpha = 0.65f))
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White.copy(alpha = 0.65f))
             )
         }
     }

@@ -15,7 +15,6 @@ import javax.inject.Singleton
 object NetworkModule {
     private const val BASE_URL = "https://economia.awesomeapi.com.br/last/"
 
-
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {
@@ -30,6 +29,4 @@ object NetworkModule {
     fun provideConverterApi(retrofit: Retrofit): ConverterApi {
         return retrofit.create(ConverterApi::class.java)
     }
-
-
 }

@@ -13,97 +13,74 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel responsible for handling user input and currency–conversion logic.
+ */
 @HiltViewModel
 class ViewModel @Inject constructor(
     private val repository: CurrencyRepository
-): ViewModel() {
+) : ViewModel() {
 
+    /* ---------- UI STATE ---------- */
 
-    private val _UiState = MutableStateFlow(UiState())
-    val uiState = _UiState.asStateFlow()
+    // Backing state (mutable inside the ViewModel)
+    private val _UIState = MutableStateFlow(UiState())
+    // State exposed to the UI (immutable)
+    val uiState = _UIState.asStateFlow()
 
+    /* ---------- PUBLIC API ---------- */
 
-    fun updateAmount(newAmount: String){
-        _UiState.update {
-            it.copy(amount = newAmount)
-        }
+    /**
+     * Update the amount entered by the user.
+     */
+    fun updateAmount(newAmount: String) {
+        _UIState.update { it.copy(amount = newAmount) }
     }
 
-    private fun updateFirstCountry(firstCountry: String){
-        _UiState.update {
-            it.copy(firstCountry = firstCountry)
-        }
-    }
-
-    private fun updateSecondCountry(secondCountry: String){
-        _UiState.update {
-            it.copy(secondCountry = secondCountry)
-        }
-    }
-    private fun updateFirstFlag(firstFlag: Int){
-        _UiState.update {
-            it.copy(firstFlag = firstFlag)
-        }
-
-    }
-    private fun updateSecondFlag(secondFlag: Int){
-        _UiState.update {
-            it.copy(secondFlag = secondFlag)
-        }
-    }
-
-    fun updateCountries(country: String, flag: Int){
-        if(_UiState.value.countrySelected == 0){
+    /**
+     * User selected a country and its flag.
+     * The first click sets the "from" country; the second click sets the "to" country.
+     */
+    fun updateCountries(country: String, flag: Int) {
+        if (_UIState.value.countrySelected == 0) {
             updateFirstCountry(country)
             updateFirstFlag(flag)
-            _UiState.update {
-                it.copy(countrySelected = 1)
-            }
-        }else{
+            _UIState.update { it.copy(countrySelected = 1) }
+        } else {
             updateSecondCountry(country)
             updateSecondFlag(flag)
-            _UiState.update {
-                it.copy(countrySelected = 0)
-            }
+            _UIState.update { it.copy(countrySelected = 0) }
         }
     }
+
     fun converter() {
         if (uiState.value.amount.isNotEmpty()) {
             viewModelScope.launch {
-                _UiState.update {
-                    it.copy(
-                        isNothing = false,
-                        isLoading = true
-                    )
-                }
+                // Show loading state
+                _UIState.update { it.copy(isNothing = false, isLoading = true) }
 
-                delay(1000)
-                val result =
-                    repository.getCurrencyQuote("${uiState.value.firstCountry}-${uiState.value.secondCountry}")
-                Log.d("repository", "Result: $result")
+                delay(1000) // Simulate network latency for UX purposes
+
+                // Build the currency pair, e.g., "USD-BRL"
+                val pair = "${uiState.value.firstCountry}-${uiState.value.secondCountry}"
+                val result = repository.getCurrencyQuote(pair)
+
                 if (result is ConverterUiState.Success && result.data != null) {
-                    val currencyQuote =
-                        result.data["${uiState.value.firstCountry}${uiState.value.secondCountry}"]
-                    Log.d("repository", "Currency Quote: $currencyQuote")
-                    val bid = currencyQuote!!.bid
+                    // Extract the bid (exchange rate)
+                    val bid = result.data["${uiState.value.firstCountry}${uiState.value.secondCountry}"]!!.bid
 
-                    Log.d("repository", "Bid value: $bid")
+                    // Store the numeric rate in state
+                    _UIState.update { current -> current.copy(number = bid.toFloat()) }
 
-
-                    _UiState.update { currentState ->
-                        currentState.copy(number = bid.toFloat())
-                    }
-
-                    _UiState.update { currentState ->
-                        currentState.copy(result = (uiState.value.amount.toFloat() * uiState.value.number).toString())
-                    }
-
-                    _UiState.update {
-                        it.copy(
-                            isLoading = false,
-                            isSuccess = true
+                    // Calculate the conversion and update the result
+                    _UIState.update { current ->
+                        current.copy(
+                            result = (uiState.value.amount.toFloat() * uiState.value.number).toString()
                         )
                     }
+
+                    // Hide loading, show success
+                    _UIState.update { it.copy(isLoading = false, isSuccess = true) }
                 } else {
                     Log.e("repository", "Failed to fetch currency quote or data is null")
                 }
@@ -111,15 +88,28 @@ class ViewModel @Inject constructor(
         }
     }
 
-    fun restart(){
-        _UiState.update {
-            it.copy(
-                isSuccess = false,
-                isNothing = true
-            )
-        }
+    /**
+     * Reset the UI back to the initial state after a successful conversion.
+     */
+    fun restart() {
+        _UIState.update { it.copy(isSuccess = false, isNothing = true) }
     }
 
+    /* ---------- PRIVATE HELPERS ---------- */
 
+    private fun updateFirstCountry(firstCountry: String) {
+        _UIState.update { it.copy(firstCountry = firstCountry) }
+    }
 
+    private fun updateSecondCountry(secondCountry: String) {
+        _UIState.update { it.copy(secondCountry = secondCountry) }
+    }
+
+    private fun updateFirstFlag(firstFlag: Int) {
+        _UIState.update { it.copy(firstFlag = firstFlag) }
+    }
+
+    private fun updateSecondFlag(secondFlag: Int) {
+        _UIState.update { it.copy(secondFlag = secondFlag) }
+    }
 }

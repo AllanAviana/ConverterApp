@@ -58,7 +58,7 @@ fun SuccessScreen(viewModel: ViewModel, uiState: State<UiState>) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            Column{
+            Column {
                 Text(text = "Result", color = Color.White)
                 Spacer(modifier = Modifier.height(8.dp))
                 Box(
@@ -78,12 +78,16 @@ fun SuccessScreen(viewModel: ViewModel, uiState: State<UiState>) {
 
                     Text(
                         uiState.value.firstCountry,
-                        modifier = Modifier.align(Alignment.CenterStart).padding(start = 60.dp),
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .padding(start = 60.dp),
                         fontSize = 15.sp
                     )
                     Text(
                         uiState.value.amount,
-                        modifier = Modifier.align(Alignment.CenterEnd).padding(end = 24.dp),
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .padding(end = 24.dp),
                         fontSize = 15.sp
                     )
                 }
@@ -102,7 +106,7 @@ fun SuccessScreen(viewModel: ViewModel, uiState: State<UiState>) {
                     .height(53.dp)
                     .clip(RoundedCornerShape(15))
                     .background(Color.White)
-            ){
+            ) {
                 Image(
                     painter = painterResource(id = uiState.value.secondFlag),
                     contentDescription = null,
@@ -111,8 +115,20 @@ fun SuccessScreen(viewModel: ViewModel, uiState: State<UiState>) {
                         .align(Alignment.CenterStart)
                 )
 
-                Text(uiState.value.secondCountry, modifier = Modifier.align(Alignment.CenterStart).padding(start = 60.dp), fontSize = 15.sp)
-                Text(uiState.value.result, modifier = Modifier.align(Alignment.CenterEnd).padding(end = 24.dp), fontSize = 15.sp)
+                Text(
+                    uiState.value.secondCountry,
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                        .padding(start = 60.dp),
+                    fontSize = 15.sp
+                )
+                Text(
+                    uiState.value.result,
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .padding(end = 24.dp),
+                    fontSize = 15.sp
+                )
             }
 
             Button(
@@ -130,7 +146,9 @@ fun SuccessScreen(viewModel: ViewModel, uiState: State<UiState>) {
         Spacer(modifier = Modifier.height(24.dp))
 
         Box(
-            modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
 
         ) {
             Column(
@@ -154,7 +172,9 @@ fun SuccessScreen(viewModel: ViewModel, uiState: State<UiState>) {
             }
 
             Box(
-                modifier = Modifier.fillMaxSize().background(Color.White.copy(alpha = 0.65f))
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White.copy(alpha = 0.65f))
             )
         }
     }

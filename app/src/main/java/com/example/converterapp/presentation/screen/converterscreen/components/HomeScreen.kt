@@ -26,8 +26,6 @@ import com.example.converterapp.presentation.screen.viewmodel.ViewModel
 @Composable
 fun HomeScreen(viewModel: ViewModel, uiState: State<UiState>) {
 
-    val expanded = remember { mutableStateOf(false) }
-
     val countryImage: Map<String, Int> = mapOf(
         "BRL" to R.drawable.brl,
         "USD" to R.drawable.usd,
@@ -74,7 +72,10 @@ fun HomeScreen(viewModel: ViewModel, uiState: State<UiState>) {
                     .height(55.dp),
                 textStyle = TextStyle(fontSize = 13.sp),
                 shape = RoundedCornerShape(15.dp),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Done
+                ),
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -107,7 +108,10 @@ fun HomeScreen(viewModel: ViewModel, uiState: State<UiState>) {
                     textStyle = TextStyle(fontSize = 13.sp),
                     shape = RoundedCornerShape(15.dp),
                     readOnly = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
+                    ),
                 )
 
                 Icon(
@@ -143,7 +147,10 @@ fun HomeScreen(viewModel: ViewModel, uiState: State<UiState>) {
                     textStyle = TextStyle(fontSize = 13.sp),
                     shape = RoundedCornerShape(15.dp),
                     readOnly = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
+                    ),
                 )
             }
 

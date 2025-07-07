@@ -23,7 +23,5 @@ fun AppNavGraph(){
         composable(route = AppNavigationRoute.ConversionScreen.route){
             Converter(viewModel)
         }
-
     }
-
 }

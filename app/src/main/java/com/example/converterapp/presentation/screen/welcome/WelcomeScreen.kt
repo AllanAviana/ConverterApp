@@ -51,7 +51,7 @@ fun WelcomeScreen(navController: NavHostController) {
                 .fillMaxWidth()
                 .fillMaxHeight(0.5f),
             Alignment.Center,
-        ){
+        ) {
             CenterImage(
                 Color(0xFFCAD2E2),
                 modifier = Modifier
@@ -84,7 +84,7 @@ fun WelcomeScreen(navController: NavHostController) {
 
             )
             CenterImage(
-                    Color.White,
+                Color.White,
                 modifier = Modifier
                     .width(235.dp)
                     .offset(y = (35).dp)
@@ -102,7 +102,8 @@ fun WelcomeScreen(navController: NavHostController) {
                 image = R.drawable.brl,
                 35,
                 Color.Black,
-                text = "BRL")
+                text = "BRL"
+            )
 
         }
 
@@ -113,13 +114,20 @@ fun WelcomeScreen(navController: NavHostController) {
 
 
 @Composable
-fun CenterImage(ColorImage: Color, modifier: Modifier, image: Int, size: Int, colorText: Color, text: String  ){
+fun CenterImage(
+    ColorImage: Color,
+    modifier: Modifier,
+    image: Int,
+    size: Int,
+    colorText: Color,
+    text: String
+) {
     Box(
         modifier = modifier
             .height(58.dp)
             .clip(RoundedCornerShape(15.dp))
             .background(color = ColorImage),
-    ){
+    ) {
         Image(
             painter = painterResource(id = image),
             contentDescription = null,
@@ -128,9 +136,11 @@ fun CenterImage(ColorImage: Color, modifier: Modifier, image: Int, size: Int, co
                 .padding(start = 10.dp)
                 .size(size.dp)
         )
-        Text(text = text, color = colorText, fontSize = 14.sp, modifier = Modifier
-            .align(Alignment.CenterStart)
-            .padding(start = 60.dp))
+        Text(
+            text = text, color = colorText, fontSize = 14.sp, modifier = Modifier
+                .align(Alignment.CenterStart)
+                .padding(start = 60.dp)
+        )
     }
 }
 
@@ -152,17 +162,12 @@ fun StartButton(navController: NavHostController) {
                 .background(color = Color(0xFF899ABE))
                 .align(Alignment.Center)
         ) {
-
-                Icon(
-                    imageVector = Icons.Filled.KeyboardArrowRight,
-                    contentDescription = null,
-                    tint = Color.White,
-                )
-
+            Icon(
+                imageVector = Icons.Filled.KeyboardArrowRight,
+                contentDescription = null,
+                tint = Color.White,
+            )
         }
-
     }
-
-
 }
 

@@ -8,13 +8,13 @@ import com.example.converterapp.presentation.screen.converterscreen.components.S
 import com.example.converterapp.presentation.screen.viewmodel.ViewModel
 
 @Composable
-fun Converter(viewModel: ViewModel){
+fun Converter(viewModel: ViewModel) {
     val uiState = viewModel.uiState.collectAsState()
-   if(uiState.value.isNothing){
-       HomeScreen(viewModel, uiState)
-   }else if(uiState.value.isLoading){
-       LoadingScreen(viewModel, uiState)
-   }else if(uiState.value.isSuccess){
-       SuccessScreen(viewModel, uiState)
-   }
+    if (uiState.value.isNothing) {
+        HomeScreen(viewModel, uiState)
+    } else if (uiState.value.isLoading) {
+        LoadingScreen(viewModel, uiState)
+    } else if (uiState.value.isSuccess) {
+        SuccessScreen(viewModel, uiState)
+    }
 }
